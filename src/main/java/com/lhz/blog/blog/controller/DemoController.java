@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 /**
+ * 具体可以看https://developer.github.com/apps/building-oauth-apps/authorizing-oauth-apps/
  * @author Administrator
  */
 @Controller
