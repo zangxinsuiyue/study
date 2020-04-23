@@ -3,6 +3,7 @@ package com.lhz.blog.blog.provider;
 import com.alibaba.fastjson.JSON;
 import com.lhz.blog.blog.dto.AccessTokenDTO;
 import com.lhz.blog.blog.dto.GithubUser;
+import com.lhz.blog.blog.mapper.UserMapper;
 import okhttp3.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
