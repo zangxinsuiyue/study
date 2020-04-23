@@ -25,12 +25,11 @@ public class DemoController {
     public String hello(HttpServletRequest request) {
         Cookie[] cookies = request.getCookies();
         for (Cookie cookie : cookies) {
-            if(Objects.equals(cookie,"token")){
+            if(Objects.equals(cookie.getName(),"token")){
                 user = userMapper.selectByToken(cookie.getValue());
                 if (user != null){
                     request.getSession().setAttribute("user",user);
                 }
-                break;
             }
         }
         return "index";

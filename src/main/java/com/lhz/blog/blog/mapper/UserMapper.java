@@ -3,11 +3,11 @@ package com.lhz.blog.blog.mapper;
 import com.lhz.blog.blog.pojo.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 /**
  * @author Administrator
  */
-@Mapper
 public interface UserMapper {
     /**
      * 根据主键删除数据
