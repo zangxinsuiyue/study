@@ -12,7 +12,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.UUID;
 
 
@@ -44,7 +46,8 @@ public class AuthorizeController {
      * @param state 在github认证后返回页面时会将之前前端发过去的state参数一并返回
      *
      * */
-    public String callback(@RequestParam(name = "code")String code, @RequestParam(name = "state")String state, HttpServletRequest request){
+    public String callback(@RequestParam(name = "code")String code, @RequestParam(name = "state")String state,
+                           HttpServletResponse response){
         AccessTokenDTO accessTokenDTO = new AccessTokenDTO(clientID,clientSecret,code, redirectUri,state);
         //这个方法可以获得令牌，有了令牌后就可以真正的向github请求用户信息了
         access_token = githubProvider.getAccessToken(accessTokenDTO);
@@ -58,7 +61,7 @@ public class AuthorizeController {
             user.setGmtCreate(System.currentTimeMillis());
             user.setGmtModified(user.getGmtCreate());
             userMapper.insert(user);
-            request.getSession().setAttribute("user",githubUser);
+            response.addCookie(new Cookie("token",user.getToken()));
         }
         return "redirect:/";
     }

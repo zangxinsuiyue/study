@@ -2,10 +2,12 @@ package com.lhz.blog.blog.mapper;
 
 import com.lhz.blog.blog.pojo.User;
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Component;
 
 /**
  * @author Administrator
  */
+@Mapper
 public interface UserMapper {
     /**
      * 根据主键删除数据
@@ -43,4 +45,11 @@ public interface UserMapper {
      * @return 返回受影响行数
      * */
     int updateByPrimaryKey(User record);
+    /**
+     * 这个token不是github传过来的令牌，而是用令牌从GitHub获取用户信息成功后，
+     * 程序使用UUID来生成的token，并将次token传给Cookie带向前端，下次前端进入
+     * 首页后，后端可以拿到次cookie并查询数据库的token字段，若存在，则自动登录
+     * @param token
+     * */
+    User selectByToken(String token);
 }
