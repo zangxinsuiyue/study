@@ -9,8 +9,14 @@ import lombok.Data;
  */
 @Data
 public class User implements Serializable {
+    /**
+     * 数据库自增id
+     * */
     private Integer id;
 
+    /**
+     * 使用UUID生成的
+     * */
     private String accountId;
 
     private String name;

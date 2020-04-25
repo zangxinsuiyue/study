@@ -9,9 +9,9 @@
     <script src="js/npm.js"></script>
 
 </head>
-<body>
+<body style="background-color: #feffe0;">
 <nav class="navbar navbar-default">
-    <div class="container-fluid">
+    <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -24,7 +24,7 @@
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" >
             <form class="navbar-form navbar-left">
                 <div class="form-group">
                     <input type="text" class="form-control" placeholder="搜索问题">
@@ -49,5 +49,41 @@
         </div>
     </div>
 </nav>
+<div class="container">
+    <div class="row" style="background-color: white">
+        <div class="col-lg-9">
+            <h2><span class="glyphicon glyphicon-plus"></span>发起</h2>
+            <hr>
+            <form action="/publish" method="post">
+                <div class="form-group input-group-sm mb-3">
+                    <label for="question-Title">问题标题：</label>
+                    <div class="alert alert-danger" role="alert" th:if="${#session.getAttribute('title-error') != null}" th:text="${#session.getAttribute('title-error')}"></div>
+                    <input name="title" type="text" class="form-control" id="question-Title" placeholder="输入标题"/>
+                </div>
+                <div class="form-group">
+                    <label for="content">内容:</label>
+                    <div class="alert alert-danger" role="alert" th:if="${#session.getAttribute('content-error') != null}" th:text="${#session.getAttribute('content-error')}"></div>
+                    <textarea name="content" class="form-control" id="content" th:cols="30" th:rows="10"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="tag">标签:</label>
+                    <div class="alert alert-danger" role="alert" th:if="${#session.getAttribute('tag-error') != null}" th:text="${#session.getAttribute('tag-error')}"></div>
+                    <input name="tag" type="text" class="form-control" id="tag" style="width: 40%" th:cols="30" th:rows="10"/>
+                </div>
+                <button type="submit" class="btn btn-success">提交</button>
+                    <div class="alert alert-danger" role="alert" th:if="${error != null}" th:text="${error}">
+                    </div>
+            </form>
+        </div>
+        <div class="col-lg-3">
+            <ul>
+                <li><h2>说明</h2></li>
+                <li>问题标题不要超过25个字</li>
+                <li>问题内容尽可能简洁</li>
+                <li>使用标签可以使他人更精准的找到你</li>
+            </ul>
+        </div>
+    </div>
+</div>
 </body>
 </html>
