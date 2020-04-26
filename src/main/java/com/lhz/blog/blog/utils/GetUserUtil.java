@@ -17,6 +17,9 @@ public class GetUserUtil {
     private UserMapper userMapper;
     private User user = null;
     public  User getUserByCookies(Cookie[] cookies){
+        if(cookies == null){
+            return null;
+        }
         for (Cookie cookie : cookies) {
             if(Objects.equals(cookie.getName(),"token")){
                 user = userMapper.selectByToken(cookie.getValue());

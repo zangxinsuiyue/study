@@ -19,6 +19,7 @@ import java.util.UUID;
 
 
 /**
+ * 这个类就是第三方登录的具体流程
  * 具体可以看https://developer.github.com/apps/building-oauth-apps/authorizing-oauth-apps/
  * @author Administrator
  */
@@ -46,11 +47,13 @@ public class AuthorizeController {
      * @param state 在github认证后返回页面时会将之前前端发过去的state参数一并返回
      *
      * */
-    public String callback(@RequestParam(name = "code")String code, @RequestParam(name = "state")String state,
+    public String callback(@RequestParam(name = "code")String code,
+                           @RequestParam(name = "state")String state,
                            HttpServletResponse response){
         AccessTokenDTO accessTokenDTO = new AccessTokenDTO(clientID,clientSecret,code, redirectUri,state);
         //这个方法可以获得令牌，有了令牌后就可以真正的向github请求用户信息了
         access_token = githubProvider.getAccessToken(accessTokenDTO);
+        //通过令牌来向GitHub获取用户信息
         GithubUser githubUser = githubProvider.getUser(access_token);
         //如果得到从github那里得到用户数据，则将其传入数据库
         if (githubUser != null){
@@ -60,6 +63,7 @@ public class AuthorizeController {
             user.setAccountId(String.valueOf(githubUser.getId()));
             user.setGmtCreate(System.currentTimeMillis());
             user.setGmtModified(user.getGmtCreate());
+            user.setHeadShotUrl(githubUser.getAvatarUrl());
             userMapper.insert(user);
             response.addCookie(new Cookie("token",user.getToken()));
         }

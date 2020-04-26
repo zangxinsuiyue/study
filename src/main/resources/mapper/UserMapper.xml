@@ -9,9 +9,10 @@
     <result column="gmt_create" jdbcType="BIGINT" property="gmtCreate" />
     <result column="gmt_modified" jdbcType="BIGINT" property="gmtModified" />
     <result column="bio" jdbcType="VARCHAR" property="bio"/>
+    <result column="head_shot_url" jdbcType="VARCHAR" property="headShotUrl"/>
   </resultMap>
   <sql id="Base_Column_List">
-    id, account_id, `name`, token, gmt_create, gmt_modified
+    id, account_id, `name`, token, gmt_create, gmt_modified,head_shot_url
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -29,10 +30,10 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.lhz.blog.blog.pojo.User" useGeneratedKeys="true">
-    insert into user (account_id, `name`, token, 
-      gmt_create, gmt_modified)
+    insert into user (account_id, `name`, token,
+      gmt_create, gmt_modified,head_shot_url)
     values (#{accountId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{token,jdbcType=CHAR}, 
-      #{gmtCreate,jdbcType=BIGINT}, #{gmtModified,jdbcType=BIGINT})
+      #{gmtCreate,jdbcType=BIGINT}, #{gmtModified,jdbcType=BIGINT},#{headShotUrl,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.lhz.blog.blog.pojo.User" useGeneratedKeys="true">
     insert into user
@@ -52,6 +53,9 @@
       <if test="gmtModified != null">
         gmt_modified,
       </if>
+      <if test="headShotUrl != null">
+        head_shot_url,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="accountId != null">
@@ -68,6 +72,9 @@
       </if>
       <if test="gmtModified != null">
         #{gmtModified,jdbcType=BIGINT},
+      </if>
+      <if test="headShotUrl != null">
+        #{headShotUrl,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -89,6 +96,9 @@
       <if test="gmtModified != null">
         gmt_modified = #{gmtModified,jdbcType=BIGINT},
       </if>
+      <if test="headShotUrl != null">
+        head_shot_url = #{headShotUrl,jdbcType=VARCHAR}
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -98,7 +108,8 @@
       `name` = #{name,jdbcType=VARCHAR},
       token = #{token,jdbcType=CHAR},
       gmt_create = #{gmtCreate,jdbcType=BIGINT},
-      gmt_modified = #{gmtModified,jdbcType=BIGINT}
+      gmt_modified = #{gmtModified,jdbcType=BIGINT},
+      head_shot_url = #{headShotUrl,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>
