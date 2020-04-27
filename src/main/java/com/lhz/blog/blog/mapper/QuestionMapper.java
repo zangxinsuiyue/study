@@ -2,6 +2,8 @@ package com.lhz.blog.blog.mapper;
 
 import com.lhz.blog.blog.pojo.Question;
 
+import java.util.List;
+
 public interface QuestionMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -14,4 +16,6 @@ public interface QuestionMapper {
     int updateByPrimaryKeySelective(Question record);
 
     int updateByPrimaryKey(Question record);
+
+    List<Question> selectAll();
 }

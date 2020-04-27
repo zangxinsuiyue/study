@@ -17,6 +17,9 @@
     id, title, content, gmt_create, gmt_modified, creator, comment_count, view_count, 
     like_count, tag
   </sql>
+  <select id="selectAll" resultType="com.lhz.blog.blog.pojo.Question">
+    select * from question
+  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />

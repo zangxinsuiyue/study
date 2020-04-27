@@ -14,6 +14,12 @@
   <sql id="Base_Column_List">
     id, account_id, `name`, token, gmt_create, gmt_modified,head_shot_url
   </sql>
+  <select id="selectByName" parameterType="string" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from user
+    where name = #{name}
+  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />

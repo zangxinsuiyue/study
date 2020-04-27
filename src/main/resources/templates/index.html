@@ -11,7 +11,7 @@
 </head>
 <body>
 <nav class="navbar navbar-default">
-    <div class="container-fluid">
+    <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -49,5 +49,34 @@
         </div>
     </div>
 </nav>
+<div class="container">
+    <div class="row" style="background-color: white">
+        <div class="col-lg-9">
+            <h3><span class="glyphicon glyphicon-list"></span>&nbsp;发现</h3>
+            <hr>
+            <div class="media" th:each="question : ${questions}">
+                <div class="media-left">
+                    <img th:src="${question.getUser().getHeadShotUrl()}" class="media-object" style="width:45px;height: 45px;">
+                </div>
+                <div class="media-body">
+                    <h4 class="media-heading" th:text="${question.getTitle()}">测试标题</h4>
+                    <a th:text="${question.getContent()}">scroll search会产生额外一次查询</a><br>
+                    <span id="tag" th:text="${question.getTag()}" style="display: inline-block;padding: 0 5px;height: 20px;line-height: 20px;
+                                                                         background-color: #f2f2f2;font-size: 12px;color: #999;"></span>•
+                    <span id="author" style="background-color: lightsteelblue" th:text="${question.getUser().getName()}"></span>发起了问题 •
+                    <span id=""></span> 人关注 •
+                    <span th:text="${question.getCommentCount()}"></span>个回复 •
+                    <span th:text="${question.getViewCount()}"></span>次浏览 •
+                    <span th:text="${#dates.format(question.getGmtCreate(),'yyyy-MMMM-dd')}"></span> 发布
+                    <hr>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-lg-3" style="border-left: 1px solid #e6e6e6">
+            <h2>热门</h2>
+        </div>
+    </div>
+</div>
 </body>
 </html>

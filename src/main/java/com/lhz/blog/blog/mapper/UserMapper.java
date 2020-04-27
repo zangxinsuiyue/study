@@ -52,4 +52,6 @@ public interface UserMapper {
      * @param token
      * */
     User selectByToken(String token);
+
+    User selectByName(String name);
 }

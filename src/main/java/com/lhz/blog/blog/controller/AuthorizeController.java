@@ -56,6 +56,8 @@ public class AuthorizeController {
         //通过令牌来向GitHub获取用户信息
         GithubUser githubUser = githubProvider.getUser(access_token);
         //如果得到从github那里得到用户数据，则将其传入数据库
+        //这里会出现一个问题，如果将cookie删掉重新登陆，或者换个未登录过的浏览器登录，即使数据库中
+        //存在此用户，但是还是因为access_token不同而新增此用户
         if (githubUser != null){
             User user = new User();
             user.setName(githubUser.getLogin());
