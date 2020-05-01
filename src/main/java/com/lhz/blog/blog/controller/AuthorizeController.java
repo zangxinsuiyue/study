@@ -5,6 +5,7 @@ import com.lhz.blog.blog.dto.GithubUser;
 import com.lhz.blog.blog.mapper.UserMapper;
 import com.lhz.blog.blog.pojo.User;
 import com.lhz.blog.blog.provider.GithubProvider;
+import com.lhz.blog.blog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -37,6 +38,8 @@ public class AuthorizeController {
     GithubProvider githubProvider;
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private UserService userService;
     @GetMapping("/callback")
     /**
      * 此类是在第一次向github发送请求后，接受返回的授权码，并将授权码再发送给github来接收令牌
@@ -56,8 +59,7 @@ public class AuthorizeController {
         //通过令牌来向GitHub获取用户信息
         GithubUser githubUser = githubProvider.getUser(access_token);
         //如果得到从github那里得到用户数据，则将其传入数据库
-        //这里会出现一个问题，如果将cookie删掉重新登陆，或者换个未登录过的浏览器登录，即使数据库中
-        //存在此用户，但是还是因为access_token不同而新增此用户
+
         if (githubUser != null){
             User user = new User();
             user.setName(githubUser.getLogin());
@@ -66,7 +68,11 @@ public class AuthorizeController {
             user.setGmtCreate(System.currentTimeMillis());
             user.setGmtModified(user.getGmtCreate());
             user.setHeadShotUrl(githubUser.getAvatarUrl());
-            userMapper.insert(user);
+            if (userService.isExist(user.getAccountId())){
+                userService.updateTokenByAccountId(user.getToken(),user.getAccountId());
+            }else {
+                userService.insert(user);
+            }
             response.addCookie(new Cookie("token",user.getToken()));
         }
         return "redirect:/";

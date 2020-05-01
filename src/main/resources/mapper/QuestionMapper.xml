@@ -147,4 +147,17 @@
       tag = #{tag,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="getTotalCount" resultType="java.lang.Integer">
+      select count(1) from question
+  </select>
+  <select id="getCurrentPageQuestions" resultType="com.lhz.blog.blog.dto.QuestionDTO">
+    select * from question limit #{index},#{size}
+  </select>
+  <select id="getCurrentUserQuestions" resultType="com.lhz.blog.blog.dto.QuestionDTO">
+    select * from question where creator = #{creator} limit #{index},#{size}
+  </select>
+  <select id="getOwnTotalCount" resultType="java.lang.Integer">
+    select count(1) from question where creator = #{creator}
+  </select>
+
 </mapper>

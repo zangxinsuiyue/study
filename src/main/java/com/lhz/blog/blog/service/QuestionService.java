@@ -12,6 +12,9 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Administrator
+ */
 @Service
 public class QuestionService {
     @Autowired
@@ -30,4 +33,12 @@ public class QuestionService {
         }
         return questionDTOS;
     }
+
+    public QuestionDTO getQuestionById(Integer id){
+        QuestionDTO questionDTO = new QuestionDTO();
+        Question question = questionMapper.selectByPrimaryKey(id);
+        BeanUtils.copyProperties(question,questionDTO);
+        return questionDTO;
+    }
+
 }

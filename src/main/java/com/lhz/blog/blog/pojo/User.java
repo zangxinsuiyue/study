@@ -2,6 +2,7 @@ package com.lhz.blog.blog.pojo;
 
 import java.io.Serializable;
 import lombok.Data;
+import org.springframework.stereotype.Component;
 
 /**
  * user
@@ -15,12 +16,15 @@ public class User implements Serializable {
     private Integer id;
 
     /**
-     * 使用UUID生成的
+     * 是从github用户信息得到的，只要是同一个github用户
+     * 就是一个accountId,所以可以用来查看用户是否存在
      * */
     private String accountId;
 
     private String name;
-
+    /**
+     * UUID生成的
+     * */
     private String token;
 
     /**

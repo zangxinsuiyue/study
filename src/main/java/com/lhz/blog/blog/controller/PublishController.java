@@ -1,9 +1,7 @@
 package com.lhz.blog.blog.controller;
-
 import com.lhz.blog.blog.mapper.QuestionMapper;
 import com.lhz.blog.blog.pojo.Question;
 import com.lhz.blog.blog.pojo.User;
-import com.lhz.blog.blog.utils.GetUserUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,7 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Objects;
 
@@ -22,9 +19,6 @@ import java.util.Objects;
 public class PublishController {
     @Autowired
     private QuestionMapper questionMapper;
-
-    @Autowired
-    private GetUserUtil getUserUtil;
     private User user;
 
 
@@ -53,14 +47,12 @@ public class PublishController {
         Question question = new Question();
         question.setTitle(title);
         question.setContent(content);
-        Cookie[] cookies = request.getCookies();
-        user = getUserUtil.getUserByCookies(cookies);
-        if(user != null){
-            question.setCreator(user.getId());
-        }else {
+        User user = (User) request.getSession().getAttribute("user");
+        if (user == null){
             model.addAttribute("error","用户未登录请先登录");
             return "publish";
         }
+        question.setCreator(user.getId());
         question.setTag(tag);
         question.setGmtCreate(System.currentTimeMillis());
         question.setGmtModified(question.getGmtCreate());

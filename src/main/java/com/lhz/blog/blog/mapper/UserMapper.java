@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 /**
  * @author Administrator
  */
+@Mapper
 public interface UserMapper {
     /**
      * 根据主键删除数据
@@ -54,4 +55,12 @@ public interface UserMapper {
     User selectByToken(String token);
 
     User selectByName(String name);
+    /**
+     * 通过accountId查看用户
+     * @param accountId 与github的id相同，可以用作判断是否为同一用户
+     * @return 返回查询的用户
+     * */
+    User selectByAccountId(String accountId);
+
+    int updateUserTokenByAccountId(String token,String accountId);
 }
