@@ -41,4 +41,12 @@ public class QuestionService {
         return questionDTO;
     }
 
+    public int insertSelective(Question question){
+        return questionMapper.insertSelective(question);
+    }
+
+    public int updateByIdSelective(Question question){
+        return questionMapper.updateByPrimaryKeySelective(question);
+    }
+
 }

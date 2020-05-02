@@ -125,7 +125,10 @@
   </update>
   <update id="updateUserTokenByAccountId">
     update user
-    set token = #{token,jdbcType=CHAR}
+    set token = #{token,jdbcType=CHAR},
+        `name` = #{name,jdbcType=VARCHAR},
+        gmt_modified = #{gmtModified,jdbcType=BIGINT},
+        head_shot_url = #{headShotUrl,jdbcType=VARCHAR}
     where account_id = #{accountId}
   </update>
 </mapper>

@@ -4,34 +4,35 @@
     <title>lhz社区</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
-    <script src="js/npm.js"></script>
-    <link rel="stylesheet" href="css/bootstrap.css">
-    <link rel="stylesheet" href="css/bootstrap-theme.css">
-    <script src="js/jquery-3.5.0.min.js"></script>
-    <script src="js/bootstrap.js"></script>
+    <script src="/js/npm.js"></script>
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/bootstrap-theme.css">
+    <script src="/js/jquery-3.5.0.min.js"></script>
+    <script src="/js/bootstrap.js"></script>
 </head>
-<body style="background-color: #feffe0;">
+<body style="background-image: url('/images/sunset.jpg');calc(100vh);">
 <div th:replace="navigation :: nav"></div>
 <div class="container">
-    <div class="row" style="background-color: white">
+    <div class="row" style="background-color: rgba(255,255,255,0.9); height:calc(100vh)">
         <div class="col-lg-9">
             <h2><span class="glyphicon glyphicon-plus"></span>发起</h2>
             <hr>
             <form action="/publish" method="post">
+                <input type="hidden" name="id" th:value="${question?.id}">
                 <div class="form-group input-group-sm mb-3">
                     <label for="question-Title">问题标题：</label>
                     <div class="alert alert-danger" role="alert" th:if="${#session.getAttribute('title-error') != null}" th:text="${#session.getAttribute('title-error')}"></div>
-                    <input name="title" type="text" class="form-control" id="question-Title" placeholder="输入标题"/>
+                    <input name="title" th:value="${question?.title}" type="text" class="form-control" id="question-Title" placeholder="输入标题"/>
                 </div>
                 <div class="form-group">
                     <label for="content">内容:</label>
                     <div class="alert alert-danger" role="alert" th:if="${#session.getAttribute('content-error') != null}" th:text="${#session.getAttribute('content-error')}"></div>
-                    <textarea name="content" class="form-control" id="content" th:cols="30" th:rows="10"></textarea>
+                    <textarea name="content" th:text="${question?.content }" class="form-control" id="content" th:cols="30" th:rows="10"></textarea>
                 </div>
                 <div class="form-group">
                     <label for="tag">标签:</label>
                     <div class="alert alert-danger" role="alert" th:if="${#session.getAttribute('tag-error') != null}" th:text="${#session.getAttribute('tag-error')}"></div>
-                    <input name="tag" type="text" class="form-control" id="tag" style="width: 40%" th:cols="30" th:rows="10"/>
+                    <input name="tag" type="text" th:value="${question?.tag}" class="form-control" id="tag" style="width: 40%" th:cols="30" th:rows="10"/>
                 </div>
                 <button type="submit" class="btn btn-success">提交</button>
                     <div class="alert alert-danger" role="alert" th:if="${error != null}" th:text="${error}">

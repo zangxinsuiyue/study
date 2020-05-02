@@ -1,10 +1,49 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title>lhz社区</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="/js/npm.js"></script>
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/bootstrap-theme.css">
+    <script src="/js/jquery-3.5.0.min.js"></script>
+    <script src="/js/bootstrap.js"></script>
+    <style>
+        hr{border-top: 2px solid #bfbfbf;
+        }
+    </style>
 </head>
-<body>
-
+<body  style="background-image: url('/images/sunset.jpg');calc(100vh);">
+<div th:replace="navigation :: nav"></div>
+<div class="container">
+    <div class="row" style="background-color: rgba(255,255,255,0.9); height:calc(100vh)">
+        <div class="col-lg-9">
+            <h3 th:text="${question.getTitle()}"></h3><br>
+            <div>
+                <span>分类:</span><span id="tag" th:text="${question.getTag()}" style="display: inline-block;padding: 0 5px;height: 20px;line-height: 20px;
+                                                                         background-color: #f2f2f2;font-size: 12px;color: #999;"></span> |
+                <span id="author" style="color: #0554b4" th:text="${question.getUser().getName()}"></span>发起了问题 |
+                <span th:text="${question.getViewCount()}"></span>次浏览 |
+                <span th:text="${#dates.format(question.getGmtCreate(),'yyyy-MM-dd')}"></span> 发布
+                <hr>
+                <span th:text="${question.getContent()}" style="font-size: 16px;    font: 12px/1.5 Tahoma,Helvetica,Arial,'宋体',sans-serif;"></span><br><hr>
+            </div>
+            <div th:if="${session.user != null}">
+            <a th:href="@{'/publish/'+${question?.getId()}}" class="glyphicon glyphicon-pencil" th:if="${question.getCreator() == session.user.id}" th:text="编辑" style="color: gray"></a>
+            </div>
+        </div>
+        <div class="col-lg-3" style="border-left: 1px solid #e6e6e6;height: 100%;">
+            <h3>发起人</h3>
+            <div class="media">
+                <div class="media-left">
+                    <img th:src="${question.getUser().getHeadShotUrl()}" class="media-object" style="width:45px;height: 45px;">
+                </div>
+                <div class="media-body">
+                    <a th:text="${question.getUser().getName()}"></a><hr>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>

@@ -1,7 +1,6 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-
     <title>lhz社区</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <script src="js/npm.js"></script>
@@ -9,15 +8,18 @@
     <link rel="stylesheet" href="css/bootstrap-theme.css">
     <script src="js/jquery-3.5.0.min.js"></script>
     <script src="js/bootstrap.js"></script>
-
+    <link rel="stylesheet" href="css/facula.css">
 </head>
-<body>
+<body style="height:calc(100vh);">
+<canvas id="c1"></canvas>
+<canvas id="c2"></canvas>
 <!--文件名 :: 选择器-->
 <!--若是使用th:insert那么外层的div会存在，使用replace外层的div将会不存在-->
 <div th:replace="navigation :: nav"></div>
 <div class="container">
-    <div class="row" style="background-color: white">
-        <div class="col-lg-9">
+
+    <div class="row" style="background-color: rgba(255,255,255,0.8); height:calc(100vh);">
+        <div class="col-lg-9 col-md-9">
             <h3><span class="glyphicon glyphicon-list"></span>&nbsp;发现</h3>
             <hr>
             <div>
@@ -26,8 +28,8 @@
                         <img th:src="${pageData.getUser().getHeadShotUrl()}" class="media-object" style="width:45px;height: 45px;">
                     </div>
                     <div class="media-body">
-                        <h4 class="media-heading" th:text="${pageData.getTitle()}">测试标题</h4>
-                        <a th:text="${pageData.getContent()}">scroll search会产生额外一次查询</a><br>
+                        <a th:href="@{'question/' + ${pageData.getId()}}"><h4 class="media-heading" th:text="${pageData.getTitle()}"></h4></a>
+                        <a th:text="${pageData.getContent()}"></a><br>
                         <span id="tag" th:text="${pageData.getTag()}" style="display: inline-block;padding: 0 5px;height: 20px;line-height: 20px;
                                                                          background-color: #f2f2f2;font-size: 12px;color: #999;"></span>•
                         <span id="author" style="background-color: lightsteelblue" th:text="${pageData.getUser().getName()}"></span>发起了问题 •
@@ -38,7 +40,7 @@
                         <hr>
                     </div>
                 </div>
-                <nav aria-label="Page navigation example">
+                <nav aria-label="Page navigation example" style="position: relative;left: 50%">
                     <ul class="pagination">
                         <li class="page-item">
                             <a th:if="${page.isHasPrevious()} == true" class="page-link" href="?currentPage=1" aria-label="Previous">
@@ -56,12 +58,12 @@
                     </ul>
                 </nav>
             </div>
-
         </div>
         <div class="col-lg-3" style="border-left: 1px solid #e6e6e6">
             <h2>热门</h2>
         </div>
     </div>
 </div>
+<script src="js/facula.js"></script>
 </body>
 </html>

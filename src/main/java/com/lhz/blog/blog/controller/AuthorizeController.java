@@ -40,7 +40,7 @@ public class AuthorizeController {
     private UserMapper userMapper;
     @Autowired
     private UserService userService;
-    @GetMapping("/callback")
+
     /**
      * 此类是在第一次向github发送请求后，接受返回的授权码，并将授权码再发送给github来接收令牌
      * 再将令牌发送给GitHub来获取用户信息的
@@ -50,6 +50,7 @@ public class AuthorizeController {
      * @param state 在github认证后返回页面时会将之前前端发过去的state参数一并返回
      *
      * */
+    @GetMapping("/callback")
     public String callback(@RequestParam(name = "code")String code,
                            @RequestParam(name = "state")String state,
                            HttpServletResponse response){
@@ -69,12 +70,21 @@ public class AuthorizeController {
             user.setGmtModified(user.getGmtCreate());
             user.setHeadShotUrl(githubUser.getAvatarUrl());
             if (userService.isExist(user.getAccountId())){
-                userService.updateTokenByAccountId(user.getToken(),user.getAccountId());
+                userService.updateTokenByAccountId(user);
             }else {
                 userService.insert(user);
             }
             response.addCookie(new Cookie("token",user.getToken()));
         }
+        return "redirect:/";
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest request,HttpServletResponse response){
+        request.getSession().removeAttribute("user");
+        Cookie cookie = new Cookie("token", null);
+        cookie.setMaxAge(0);
+        response.addCookie(cookie);
         return "redirect:/";
     }
 

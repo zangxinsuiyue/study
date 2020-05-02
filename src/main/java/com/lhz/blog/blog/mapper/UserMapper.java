@@ -62,5 +62,5 @@ public interface UserMapper {
      * */
     User selectByAccountId(String accountId);
 
-    int updateUserTokenByAccountId(String token,String accountId);
+    int updateUserTokenByAccountId(User record);
 }

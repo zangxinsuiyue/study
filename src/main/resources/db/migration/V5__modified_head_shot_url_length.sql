@@ -1,0 +1,1 @@
+alter table user modify head_shot_url varchar(256) null;

@@ -22,7 +22,7 @@ public class UserService {
     public int insert(User user){
        return userMapper.insert(user);
     }
-    public int updateTokenByAccountId(String token,String accountId){
-        return userMapper.updateUserTokenByAccountId(token,accountId);
+    public int updateTokenByAccountId(User user){
+        return userMapper.updateUserTokenByAccountId(user);
     }
 }
