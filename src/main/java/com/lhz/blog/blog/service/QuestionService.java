@@ -1,6 +1,8 @@
 package com.lhz.blog.blog.service;
 
 import com.lhz.blog.blog.dto.QuestionDTO;
+import com.lhz.blog.blog.exception.CustomException;
+import com.lhz.blog.blog.exception.QuestionErrorMessage;
 import com.lhz.blog.blog.mapper.QuestionMapper;
 import com.lhz.blog.blog.mapper.UserMapper;
 import com.lhz.blog.blog.pojo.Question;
@@ -37,6 +39,9 @@ public class QuestionService {
     public QuestionDTO getQuestionById(Integer id){
         QuestionDTO questionDTO = new QuestionDTO();
         Question question = questionMapper.selectByPrimaryKey(id);
+        if(question == null){
+            throw new CustomException(QuestionErrorMessage.QUESTION_NOT_FOUNT);
+        }
         BeanUtils.copyProperties(question,questionDTO);
         return questionDTO;
     }
@@ -46,7 +51,11 @@ public class QuestionService {
     }
 
     public int updateByIdSelective(Question question){
-        return questionMapper.updateByPrimaryKeySelective(question);
+        int result = questionMapper.updateByPrimaryKeySelective(question);
+        if(result == 0){
+            throw new CustomException(QuestionErrorMessage.QUESTION_NOT_FOUNT);
+        }
+        return result;
     }
 
 }

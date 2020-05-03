@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>发生错误了</title>
+    <link href="/css/error-page.css" rel="stylesheet" type="text/css" />
+</head>
+<body class="notfound">
+<!-- 代码 开始 -->
+<div class="wrapper">
+    <!--/*@thymesVar id="message" type="com.lhz.blog.blog.advice.ExceptionHandle"*/-->
+    <div class="big" th:text="${message}"></div>
+    <div>要不您去js代码首页瞧瞧，点击 <a href="/" target="_self">返回首页</a></div>
+</div>
+</body>
+</html>

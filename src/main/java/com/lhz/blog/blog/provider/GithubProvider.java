@@ -3,9 +3,7 @@ package com.lhz.blog.blog.provider;
 import com.alibaba.fastjson.JSON;
 import com.lhz.blog.blog.dto.AccessTokenDTO;
 import com.lhz.blog.blog.dto.GithubUser;
-import com.lhz.blog.blog.mapper.UserMapper;
 import okhttp3.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -16,9 +14,13 @@ import java.io.IOException;
  */
 @Component
 public class GithubProvider {
-    //从github返回的内容
+    /**
+     * 从github返回的内容
+     * */
     private String responseContent;
-    //从responseContent中获得的令牌
+    /**
+     *从responseContent中获得的令牌
+     * */
     private String token;
     /**
      * 目的是通过向github发送授权码，来获取令牌。
@@ -30,11 +32,6 @@ public class GithubProvider {
         OkHttpClient client = new OkHttpClient();
             //设置请求体中的内容
             RequestBody body = RequestBody.create(mediaType, JSON.toJSONString(accessTokenDTO));
-//            Request request = new Request.Builder()
-//                    .url("https://github.com/login/oauth/access_token?client_id="+accessTokenDTO.getClient_id()+"&client_secret="+
-//                            accessTokenDTO.getClient_secret()+"&code="+accessTokenDTO.getCode())
-//                    .post(body).build();
-
         Request request = new Request.Builder()
                 .url("https://github.com/login/oauth/access_token")
                 .post(body).build();
