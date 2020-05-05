@@ -1,4 +1,4 @@
-package com.lhz.blog.blog.exception;
+package com.lhz.blog.blog.message;
 
 /**
  * 此接口是用来返回错误信息
@@ -12,4 +12,9 @@ public interface CustomErrorMessage {
      * @return 返回错误信息
      * */
     String getMessage();
+    /**
+     * 用来获取错误码
+     * @return 返回错误码
+     * */
+    Integer getCode();
 }

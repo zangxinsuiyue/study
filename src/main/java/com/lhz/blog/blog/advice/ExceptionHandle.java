@@ -12,7 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 @ControllerAdvice
 public class ExceptionHandle {
     @ExceptionHandler(Exception.class)
-    public ModelAndView errorHandler(Throwable e, Model model){
+    public ModelAndView errorHandler(Exception e, Model model){
         if(e instanceof CustomException){
             model.addAttribute("message",e.getMessage());
         }else {

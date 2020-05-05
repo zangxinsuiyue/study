@@ -13,6 +13,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Objects;
 
 /**
+ * 这是个登录验证的拦截器，拦截所有请求，他会比controller先执行
+ * 思路是每过一个请求都会查找浏览器的cookie
+ * 查看其中是否由token，若没有则返回首页，并提示登录
+ * 若有，则用此token去向用户表中查看是否还有此用户
+ * 同理
  * @author Administrator
  */
 @Component

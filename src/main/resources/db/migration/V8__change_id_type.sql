@@ -1,0 +1,1 @@
+alter table question modify id bigint(25) auto_increment;

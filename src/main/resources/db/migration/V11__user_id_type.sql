@@ -1,0 +1,1 @@
+alter table user modify id bigint(30) auto_increment;

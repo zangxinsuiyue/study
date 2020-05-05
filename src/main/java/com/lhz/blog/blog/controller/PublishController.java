@@ -1,6 +1,5 @@
 package com.lhz.blog.blog.controller;
 import com.lhz.blog.blog.dto.QuestionDTO;
-import com.lhz.blog.blog.mapper.QuestionMapper;
 import com.lhz.blog.blog.pojo.Question;
 import com.lhz.blog.blog.pojo.User;
 import com.lhz.blog.blog.service.QuestionService;
@@ -31,7 +30,7 @@ public class PublishController {
     }
 
     @GetMapping("/publish/{id}")
-    public String publish(@PathVariable("id") Integer id,Model model){
+    public String publish(@PathVariable("id") Long id, Model model){
         QuestionDTO question = questionService.getQuestionById(id);
         model.addAttribute("question",question);
         return "publish";
@@ -42,7 +41,7 @@ public class PublishController {
             @RequestParam("title") String title,
             @RequestParam("content") String content,
             @RequestParam("tag") String tag,
-            @RequestParam(value = "id",required = false) Integer id,
+            @RequestParam(value = "id",required = false) Long id,
             HttpServletRequest request,
             Model model){
         if(Objects.equals(title,"")){

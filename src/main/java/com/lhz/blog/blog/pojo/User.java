@@ -13,7 +13,7 @@ public class User implements Serializable {
     /**
      * 数据库自增id
      * */
-    private Integer id;
+    private Long id;
 
     /**
      * 是从github用户信息得到的，只要是同一个github用户

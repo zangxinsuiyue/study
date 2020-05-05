@@ -56,7 +56,7 @@ public class PageDtoService {
         return pageInfo;
     }
 
-    public PageDTO getOwnPage(Integer creator,String currentPage, String pageSize){
+    public PageDTO getOwnPage(Long creator, String currentPage, String pageSize){
         PageDTO ownPageInfo = new PageDTO();
         //currentPage为前端传入的当前页号，但是若要用limit分页还需要将得到通过getIndex方法
         //来得到sql语句中真实的index，有前台传入的currentPage是用来进行setCurrentPage的

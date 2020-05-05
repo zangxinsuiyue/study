@@ -2,8 +2,6 @@ package com.lhz.blog.blog.mapper;
 
 import com.lhz.blog.blog.pojo.User;
 import org.apache.ibatis.annotations.Mapper;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
 
 /**
  * @author Administrator
@@ -15,7 +13,7 @@ public interface UserMapper {
      * @param id 主键id
      * @return 返回受影响行数
      * */
-    int deleteByPrimaryKey(Integer id);
+    int deleteByPrimaryKey(Long id);
     /**
      * 插入完整的数据，所有的属性都要赋值
      * @param record 封装User信息
@@ -33,7 +31,7 @@ public interface UserMapper {
      * @param id 主键id
      * @return 将返回的用户数据封装为User对象
      * */
-    User selectByPrimaryKey(Integer id);
+    User selectByPrimaryKey(Long id);
     /**
      * 有选择性地更新数据，不用所有字段都强制更新
      * @param record 封装修改过数据的User对象

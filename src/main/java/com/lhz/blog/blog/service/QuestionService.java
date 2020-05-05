@@ -2,7 +2,7 @@ package com.lhz.blog.blog.service;
 
 import com.lhz.blog.blog.dto.QuestionDTO;
 import com.lhz.blog.blog.exception.CustomException;
-import com.lhz.blog.blog.exception.QuestionErrorMessage;
+import com.lhz.blog.blog.message.impl.QuestionErrorMessage;
 import com.lhz.blog.blog.mapper.QuestionMapper;
 import com.lhz.blog.blog.mapper.UserMapper;
 import com.lhz.blog.blog.pojo.Question;
@@ -36,10 +36,11 @@ public class QuestionService {
         return questionDTOS;
     }
 
-    public QuestionDTO getQuestionById(Integer id){
+    public QuestionDTO getQuestionById(Long id){
         QuestionDTO questionDTO = new QuestionDTO();
         Question question = questionMapper.selectByPrimaryKey(id);
         if(question == null){
+            //执行到此处是，CustomException就有信息了，再来就是将此信息传给前端而已
             throw new CustomException(QuestionErrorMessage.QUESTION_NOT_FOUNT);
         }
         BeanUtils.copyProperties(question,questionDTO);
@@ -56,6 +57,10 @@ public class QuestionService {
             throw new CustomException(QuestionErrorMessage.QUESTION_NOT_FOUNT);
         }
         return result;
+    }
+
+    public int updateViewCount(Long id){
+        return questionMapper.updateViewCount(id);
     }
 
 }
