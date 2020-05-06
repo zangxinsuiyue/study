@@ -1,5 +1,6 @@
 package com.lhz.blog.blog.dto;
 
+import com.lhz.blog.blog.exception.CustomException;
 import com.lhz.blog.blog.message.CustomErrorMessage;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -33,5 +34,9 @@ public class ResultDTO {
 
     public static ResultDTO okOf(){
         return new ResultDTO(200,"请求成功");
+    }
+
+    public static ResultDTO errorOf(CustomException e) {
+        return new ResultDTO(e.getCode(),e.getMessage());
     }
 }

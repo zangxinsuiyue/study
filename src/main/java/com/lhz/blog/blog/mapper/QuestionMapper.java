@@ -29,4 +29,6 @@ public interface QuestionMapper {
     List<QuestionDTO> getCurrentUserQuestions(Long creator, Integer index, Integer size);
 
     int updateViewCount(Long id);
+
+    int updateCommentCount(Question record);
 }

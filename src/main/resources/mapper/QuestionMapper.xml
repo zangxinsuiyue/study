@@ -152,6 +152,11 @@
       set view_count = view_count + 1
       where id = #{id}
     </update>
+    <update id="updateCommentCount" parameterType="com.lhz.blog.blog.pojo.Question">
+      update question
+      set comment_count = comment_count + #{commentCount,jdbcType=INTEGER}
+      where id = #{id,jdbcType=BIGINT}
+    </update>
     <select id="getTotalCount" resultType="java.lang.Integer">
       select count(1) from question
   </select>
